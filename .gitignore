@@ -13,3 +13,7 @@ build/
 *.aab
 native/
 obj/
+
+# 忽略签名文件
+app/keystore.jks
+app/keystore.properties
