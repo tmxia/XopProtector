@@ -3,7 +3,7 @@ name: Build XopProtector APK
 on:
   push:
     branches: [ "main", "master" ]
-  workflow_dispatch:      # 支持手动点击触发
+  workflow_dispatch:
 
 jobs:
   build:
@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout Source
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # 必须拉取完整 git 历史，因为发布 Release 可能需要打 tag
 
     - name: Set up JDK 17
       uses: actions/setup-java@v4
@@ -19,6 +21,16 @@ jobs:
         distribution: 'zulu'
         java-version: '17'
         cache: gradle
+
+    - name: Read Version from build.gradle.kts
+      id: get_version
+      run: |
+        # 动态读取 Android 项目里的 versionName 和 versionCode
+        VERSION_NAME=$(grep -oE 'versionName\s*=\s*"[^"]+"' app/build.gradle.kts | head -1 | sed -E 's/versionName\s*=\s*"([^"]+)"/\1/')
+        VERSION_CODE=$(grep -oE 'versionCode\s*=\s*[0-9]+' app/build.gradle.kts | head -1 | sed -E 's/versionCode\s*=\s*([0-9]+)/\1/')
+        echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_OUTPUT
+        echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_OUTPUT
+        echo "✅ 读取到版本号: v$VERSION_NAME (Code: $VERSION_CODE)"
 
     - name: Decode Keystore
       run: |
@@ -34,17 +46,37 @@ jobs:
     - name: Build Release APK
       run: ./gradlew assembleRelease
 
+    - name: Rename and Collect APK
+      run: |
+        mkdir -p output
+        # 找到所有编译出来的 release apk 并重命名
+        for f in $(find . -name "*.apk" -path "*/build/outputs/apk/release/*"); do
+          cp "$f" "output/XopProtector-v${{ steps.get_version.outputs.VERSION_NAME }}.apk"
+        done
+
     - name: Upload APK Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: XopProtector-Release
-        path: "**/build/outputs/apk/release/*.apk"
+        name: XopProtector-v${{ steps.get_version.outputs.VERSION_NAME }}
+        path: output/*.apk
 
-    # 可选：如果 Tag 包含 v*，自动发布到 Release
-    - name: Create Release
-      if: startsWith(github.ref, 'refs/tags/v')
+    - name: Publish to GitHub Releases
       uses: softprops/action-gh-release@v2
       with:
-        files: "**/build/outputs/apk/release/*.apk"
+        # 使用提取到的版本号作为 Tag，如 v1.0.1
+        tag_name: v${{ steps.get_version.outputs.VERSION_NAME }}
+        name: Release v${{ steps.get_version.outputs.VERSION_NAME }}
+        body: |
+          Auto-built APK by GitHub Actions.
+          - **App 版本**: v${{ steps.get_version.outputs.VERSION_NAME }}
+          - **Version Code**: ${{ steps.get_version.outputs.version_code }}
+        files: output/*.apk
+        draft: false
+        prerelease: false
+        # 如果同版本被多次编译，自动覆盖文件
+        overwrite_files: true
+        make_latest: true
+        # 关键修复：如果本地有 tag 但没推上来，指定 target 强行基于 master 创建
+        target: main
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
