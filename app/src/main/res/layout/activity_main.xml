@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/paper"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="28dp"
+        android:paddingBottom="40dp">
+
+        <!-- 标题区：墨枢 + 印章 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/titleInk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ink_title"
+                    android:textColor="@color/ink_black"
+                    android:textSize="34sp"
+                    android:letterSpacing="0.35"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/subtitleInk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/ink_subtitle"
+                    android:textColor="@color/ink_gray"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:background="@drawable/bg_seal_stamp"
+                android:gravity="center"
+                android:text="固"
+                android:textColor="@color/paper"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="18dp"
+            android:background="@color/ink_faint" />
+
+        <!-- 选包卡片 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ink_card"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="选 卷"
+                style="@style/InkTag" />
+
+            <TextView
+                android:id="@+id/txtApkPath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="尚未选择 APK"
+                android:textColor="@color/ink_gray"
+                android:textSize="14sp"
+                android:maxLines="2"
+                android:ellipsize="middle" />
+
+            <TextView
+                android:id="@+id/btnPick"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_chip_outline"
+                android:gravity="center"
+                android:text="浏览 APK"
+                android:textColor="@color/ink_black"
+                android:textSize="15sp" />
+        </LinearLayout>
+
+        <!-- 策略卡片 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ink_card"
+            android:padding="18dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="笔 法"
+                style="@style/InkTag" />
+
+            <LinearLayout
+                android:id="@+id/profileRow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/chipBalanced"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_chip_ink"
+                    android:gravity="center"
+                    android:text="衡"
+                    android:textColor="@color/paper"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/chipAggressive"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center"
+                    android:text="深"
+                    android:textColor="@color/ink_black"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/chipMax"
+                    android:layout_width="0dp"
+                    android:layout_height="36dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center"
+                    android:text="极"
+                    android:textColor="@color/ink_black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txtProfileDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="整体加密 · 启动快"
+                android:textColor="@color/ink_gray"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <!-- 高级选项（折叠） -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ink_card"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="细 节"
+                    style="@style/InkTag" />
+
+                <TextView
+                    android:id="@+id/btnToggleAdvanced"
+                    android:layout_width="wrap_content"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="展开"
+                    android:textColor="@color/ink_black"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/panelAdvanced"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/chipSo"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:background="@drawable/bg_chip_ink"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="SO 代码加密　✓"
+                    android:textColor="@color/paper"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/chipResProtect"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="资源路径混淆　✗"
+                    android:textColor="@color/ink_black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/chipNetGuard"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="网络防护（代理检测）　✗"
+                    android:textColor="@color/ink_black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/chipSoDiag"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="SO 加载诊断　✗"
+                    android:textColor="@color/ink_black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/chipAssets"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="assets 加密（需应用适配）　✗"
+                    android:textColor="@color/ink_black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/chipRasp"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_chip_ink"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="运行时自检（RASP）　Block"
+                    android:textColor="@color/paper"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/chipX86"
+                    android:layout_width="match_parent"
+                    android:layout_height="34dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center_vertical"
+                    android:paddingStart="12dp"
+                    android:paddingEnd="12dp"
+                    android:text="含 x86 库的 APK（精简壳）　✗"
+                    android:textColor="@color/ink_black"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="资源混淆 / 网络防护对大部分应用安全；assets 加密会让未适配的应用读不到资源；RASP 在 root 或带调试框架的设备上会终止目标应用。"
+                    android:textColor="@color/ink_gray"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- 加固按钮 -->
+        <TextView
+            android:id="@+id/btnHarden"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_seal_button"
+            android:gravity="center"
+            android:text="落 墨 加 固"
+            android:textColor="@color/paper"
+            android:textSize="17sp"
+            android:letterSpacing="0.25" />
+
+        <!-- 进度卡片 -->
+        <LinearLayout
+            android:id="@+id/cardProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ink_card"
+            android:padding="18dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/txtPhase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="研墨…"
+                android:textColor="@color/ink_black"
+                android:textSize="15sp" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/bg_progress_track">
+
+                <View
+                    android:id="@+id/barProgress"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_progress_ink" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/txtLog"
+                android:layout_width="match_parent"
+                android:layout_height="160dp"
+                android:layout_marginTop="12dp"
+                android:background="@color/paper"
+                android:padding="10dp"
+                android:textColor="@color/ink_gray"
+                android:textSize="11sp"
+                android:fontFamily="monospace"
+                android:scrollbars="vertical" />
+        </LinearLayout>
+
+        <!-- 完成卡片 -->
+        <LinearLayout
+            android:id="@+id/cardDone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:orientation="vertical"
+            android:background="@drawable/bg_ink_card"
+            android:padding="18dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="钤 印 完 成"
+                android:textColor="@color/cinnabar"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtOutPath"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/ink_gray"
+                android:textSize="13sp"
+                android:maxLines="3"
+                android:ellipsize="middle" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/btnInstall"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/bg_seal_button"
+                    android:gravity="center"
+                    android:text="安装"
+                    android:textColor="@color/paper"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/btnShare"
+                    android:layout_width="0dp"
+                    android:layout_height="44dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="10dp"
+                    android:background="@drawable/bg_chip_outline"
+                    android:gravity="center"
+                    android:text="分享"
+                    android:textColor="@color/ink_black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:gravity="center"
+            android:text="基于 XopProtector · 以墨为盾，见字即止"
+            android:textColor="@color/ink_faint"
+            android:textSize="12sp" />
+    </LinearLayout>
+</ScrollView>

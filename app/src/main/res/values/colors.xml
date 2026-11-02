@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="paper">#F6F1E7</color>
+    <color name="paper_dark">#EFE8D8</color>
+    <color name="ink_black">#2B2A26</color>
+    <color name="ink_gray">#6B675E</color>
+    <color name="ink_faint">#C9C2B2</color>
+    <color name="cinnabar">#A63E2E</color>
+    <color name="cinnabar_dark">#8C3325</color>
+    <color name="mist_white">#FDFBF5</color>
+</resources>

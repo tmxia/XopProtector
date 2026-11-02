@@ -1,0 +1,2 @@
+-keep class com.yqsh.protector.shell.** { *; }
+-dontwarn com.yqsh.protector.shell.**

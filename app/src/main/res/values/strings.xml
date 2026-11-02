@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">墨枢加固</string>
+    <string name="ink_title">墨枢</string>
+    <string name="ink_subtitle">XopProtector · 水墨加固台</string>
+    <string name="toast_need_apk">先选一卷 APK</string>
+    <string name="toast_running">正在落墨，稍候</string>
+    <string name="toast_done">加固完成</string>
+</resources>
